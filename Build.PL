@@ -12,7 +12,10 @@ my $builder = Module::Build->new(
         'Test::More' => 0,
     },
     requires => {
-        'perl' => 5.006,
+        'perl' 			=> 5.006,
+	'WWW::Mechanize'	=> 1.72,
+	'HTTP::Cookies'		=> 6.01,
+	'Carp'			=> 1.26 
     },
     add_to_cleanup      => [ 'WWW-Coursera-*' ],
     create_makefile_pl => 'traditional',

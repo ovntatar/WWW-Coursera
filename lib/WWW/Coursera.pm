@@ -9,7 +9,6 @@ use HTTP::Cookies;
 use WWW::Mechanize::Link;
 use Carp qw(croak);
 
-use Data::Dumper;
 =head1 NAME
 
 WWW::Coursera - Downloading material (video, text, pdf ...) from Coursera.org online classes.
