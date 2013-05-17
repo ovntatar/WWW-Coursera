@@ -31,7 +31,7 @@ materials.
 Perhaps a little code snippet.
 
  use WWW::Coursera;
- my $initial = WWW::Coursera->new( 	username => 'xxxxx', password =>  'xxxx', course =>	'xxxx');
+ my $initial = WWW::Coursera->new( username => 'xxxxx', password => 'xxxx', course => 'xxxx');
  $initial->set_localdir("/home/xxxxx/Perl/Coursera/tmp");
  $initial->get_all();
 
