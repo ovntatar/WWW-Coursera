@@ -60,6 +60,8 @@ sub new {
 
 =head2 set_localdir
 
+
+
 =cut
 
 sub set_localdir {
@@ -231,16 +233,6 @@ See http://dev.perl.org/licenses/ for more information.
 
 1; # End of WWW::Coursera
 
-
-package main;
-
-use Data::Dumper;
-
-my $initial = WWW::Coursera->new( 	username 	=> 	'ovn.tatar@gmail.com',
-									password	=> 	'Oliver1//',
-									course		=>	'bigdata-002');
-$initial->set_localdir("/home/research/Documents/Perl/Coursera/tmp");
-$initial->get_all();
 
 
 
