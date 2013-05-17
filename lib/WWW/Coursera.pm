@@ -50,7 +50,7 @@ sub new {
     bless $self, $class;
 
     for my $required (qw{ username password course  }) {
-	croak "Required parameter '$required' missing in constructor" unless exists $params{$required};  
+			croak "Required parameter '$required' missing in constructor" unless exists $params{$required};  
     }    
     return $self;
 }
@@ -79,11 +79,15 @@ In the source code below, will create a cookie named cookie.txt to store header 
 =cut
 
 sub set_cookie {
+	
     my( $self) = @_;
+  
     my $bot = WWW::Mechanize->new();
     $bot->agent_alias( 'Linux Mozilla' );
     $bot->cookie_jar( HTTP::Cookies->new(file => "cookie.txt", autosave => 1, ignore_discard => 1 ) );
     $self->{bot}=$bot;
+    
+    croak "Mechanize object does'n exist!" unless $self->{bot};
     return $self->{bot};
 }
 
@@ -95,9 +99,12 @@ Filter csrf_token key from the cookie.txt file.
 
 sub set_csrftoken {
     my( $self) = @_;
+    
     my $response = $self->{bot}->post("https://class.coursera.org/$self->{course}/lecture/index");
     my $key=$self->{bot}->cookie_jar()-> {"COOKIES"}-> {"class.coursera.org"}-> {"/$self->{course}"}-> {"csrf_token"}->[1];
     $self->{key}=$key;
+    
+    croak "COOKIES key does'n exist!" unless $self->{key};
     return $self->{key};
 }
 
@@ -108,15 +115,20 @@ Send a new html request to get session cokkie token and save session key in glob
 =cut
 
 sub get_session {
-my( $self) = @_;
+	
+		my( $self) = @_;
+		
     $self->{bot}->add_header('Cookie' => "csrftoken=$self->{key}");
     $self->{bot}->add_header('Referer' => 'https://www.coursera.org');
     $self->{bot}->add_header('X-CSRFToken' => "$self->{key}");
     $self->{bot}->add_header('X-Requested-With' => 'XMLHttpRequest' );
+    
     my $response=$self->{bot}->post('https://www.coursera.org/maestro/api/user/login', [ email_address => "$self->{username}",  password => "$self->{password}"]);
     $self->{bot}->get("https://class.coursera.org/$self->{course}/auth/auth_redirector?type=login&subtype=normal&email=&visiting=index");
     my $session=$self->{bot}->cookie_jar()-> {"COOKIES"}-> {"class.coursera.org"}-> {"/$self->{course}"}-> {"session"}->[1];
     $self->{session}=$session;
+    
+    croak "Session key does'n exist!" unless $self->{session};
     return $self->{session};
 }
 
@@ -128,11 +140,13 @@ Extract links from course index page.
 
 sub get_links {
     my( $self) = @_;
+    
     $self->{bot}->get("https://class.coursera.org/$self->{course}/auth/auth_redirector?type=login&subtype=normal&email=&visiting=index");
     my $session=$self->{bot}->cookie_jar()-> {"COOKIES"}-> {"class.coursera.org"}-> {"/$self->{course}"}-> {"session"}->[1];
     $self->{bot}->add_header("Cookie" => "csrf_token=$self->{key}");
     $self->{bot}->add_header("session" => "$self->{session}");
     my $response = $self->{bot}->post("https://class.coursera.org/$self->{course}/lecture/index");
+    
     $self->{response}=$response;
     return $self->{bot}->links();
 }
@@ -144,17 +158,24 @@ Download lectures.
 =cut
 
 sub download {
-    my( $self) = @_;
-    my $count = scalar(keys $self->get_links());
+	
+  my( $self) = @_;
+  
+  my $count = scalar(keys $self->get_links());
 	my @extentions=("mp4","txt","pdf","pptx","srt");
 	foreach my $items ($self->get_links()) {
+		
 		foreach my $ext (@extentions) {
+			
 			if ( $items->[0] =~ /$ext/i) {
+				
 				my $st=$items->[1];
+				
 				if ($st =~ /for\s+/i) {
 				my $st2=$';
 				$st2 =~ s/^ //;
 				$st2 =~s/\W+/_/g;
+				
 					if ( $self->{set_localdir} ) {
 						print "Downloading class: " . $items->[1] . "\n" ;
 						$self->{bot}->get( "$items->[0]", ":content_file" => "$self->{set_localdir}/$st2.$ext" );
@@ -162,9 +183,14 @@ sub download {
 						print "Downloading class: " . $items->[1] . "\n"  ;
 						$self->{bot}->get( "$items->[0]", ":content_file" => "$st2.$ext" );
 					}
+					
 				}	
+				
 			}
+			
 		}	
+		
+		
 	}			
 }
 
@@ -175,7 +201,9 @@ Main, which marks the entry point of the program.
 =cut
 
 sub get_all {
+	
     my( $self) = @_;
+    
     $self->set_cookie();
     $self->set_csrftoken();
     $self->get_session();
@@ -249,6 +277,7 @@ See http://dev.perl.org/licenses/ for more information.
 =cut
 
 1; # End of WWW::Coursera
+
 
 
 
