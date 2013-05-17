@@ -63,8 +63,12 @@ Set download folder by set $inizial->set_localdir("OS_FOLDER");
 
 sub set_localdir {
     my( $self, $set_localdir) = @_;
-    $self->{set_localdir}=$set_localdir;
-    return $self->{set_localdir};
+    if (-d "$set_localdir") {
+			$self->{set_localdir}=$set_localdir;
+			return $self->{set_localdir};
+		} else {
+			croak "Directory $set_localdir does'n exist";
+		}
 }
 
 
@@ -171,11 +175,11 @@ Main, which marks the entry point of the program.
 =cut
 
 sub get_all {
-	my( $self) = @_;
-	$self->set_cookie();
-	$self->set_csrftoken();
-	$self->get_session();
-	return $self->download();
+    my( $self) = @_;
+    $self->set_cookie();
+    $self->set_csrftoken();
+    $self->get_session();
+    return $self->download();
 	
 }
 
