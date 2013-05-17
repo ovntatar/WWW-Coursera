@@ -51,94 +51,104 @@ sub new {
     bless $self, $class;
 
     for my $required (qw{ username password course  }) {
-        croak "Required parameter '$required' missing in constructor" unless exists $params{$required};  
+	croak "Required parameter '$required' missing in constructor" unless exists $params{$required};  
     }    
     return $self;
 }
 
 =head2 set_localdir
 
-
+Set download folder by set $inizial->set_localdir("OS_FOLDER");
 
 =cut
 
 sub set_localdir {
-	my( $self, $set_localdir) = @_;
-	$self->{set_localdir}=$set_localdir;
-	return $self->{set_localdir};
+    my( $self, $set_localdir) = @_;
+    $self->{set_localdir}=$set_localdir;
+    return $self->{set_localdir};
 }
 
 
 =head2 set_cookie
 
+In the source code below, will create a cookie named cookie.txt to store header information.
+
 =cut
 
 sub set_cookie {
-	my( $self) = @_;
-	my $bot = WWW::Mechanize->new();
-	$bot->agent_alias( 'Linux Mozilla' );
-	$bot->cookie_jar( HTTP::Cookies->new(file => "cookie.txt", autosave => 1, ignore_discard => 1 ) );
-	$self->{bot}=$bot;
-	return $self->{bot};
+    my( $self) = @_;
+    my $bot = WWW::Mechanize->new();
+    $bot->agent_alias( 'Linux Mozilla' );
+    $bot->cookie_jar( HTTP::Cookies->new(file => "cookie.txt", autosave => 1, ignore_discard => 1 ) );
+    $self->{bot}=$bot;
+    return $self->{bot};
 }
 
 =head2 set_csrftoken
 
+Filter csrf_token key from the cookie.txt file.
+
 =cut
 
 sub set_csrftoken {
-	my( $self) = @_;
-	my $response = $self->{bot}->post("https://class.coursera.org/$self->{course}/lecture/index");
-	my $key=$self->{bot}->cookie_jar()-> {"COOKIES"}-> {"class.coursera.org"}-> {"/$self->{course}"}-> {"csrf_token"}->[1];
-	$self->{key}=$key;
-	return $self->{key};
+    my( $self) = @_;
+    my $response = $self->{bot}->post("https://class.coursera.org/$self->{course}/lecture/index");
+    my $key=$self->{bot}->cookie_jar()-> {"COOKIES"}-> {"class.coursera.org"}-> {"/$self->{course}"}-> {"csrf_token"}->[1];
+    $self->{key}=$key;
+    return $self->{key};
 }
 
 =head2 get_session
 
+Send a new html request to get session cokkie token and save session key in global variable.
+
 =cut
 
 sub get_session {
-	my( $self) = @_;
-	$self->{bot}->add_header('Cookie' => "csrftoken=$self->{key}");
-	$self->{bot}->add_header('Referer' => 'https://www.coursera.org');
-	$self->{bot}->add_header('X-CSRFToken' => "$self->{key}");
-	$self->{bot}->add_header('X-Requested-With' => 'XMLHttpRequest' );
-	my $response=$self->{bot}->post('https://www.coursera.org/maestro/api/user/login', [ email_address => "$self->{username}",  password => "$self->{password}"]);
-	$self->{bot}->get("https://class.coursera.org/$self->{course}/auth/auth_redirector?type=login&subtype=normal&email=&visiting=index");
-	my $session=$self->{bot}->cookie_jar()-> {"COOKIES"}-> {"class.coursera.org"}-> {"/$self->{course}"}-> {"session"}->[1];
-	$self->{session}=$session;
-	return $self->{session};
+my( $self) = @_;
+    $self->{bot}->add_header('Cookie' => "csrftoken=$self->{key}");
+    $self->{bot}->add_header('Referer' => 'https://www.coursera.org');
+    $self->{bot}->add_header('X-CSRFToken' => "$self->{key}");
+    $self->{bot}->add_header('X-Requested-With' => 'XMLHttpRequest' );
+    my $response=$self->{bot}->post('https://www.coursera.org/maestro/api/user/login', [ email_address => "$self->{username}",  password => "$self->{password}"]);
+    $self->{bot}->get("https://class.coursera.org/$self->{course}/auth/auth_redirector?type=login&subtype=normal&email=&visiting=index");
+    my $session=$self->{bot}->cookie_jar()-> {"COOKIES"}-> {"class.coursera.org"}-> {"/$self->{course}"}-> {"session"}->[1];
+    $self->{session}=$session;
+    return $self->{session};
 }
 
 =head2 get_links
 
+Extract links from course index page.
+
 =cut
 
 sub get_links {
-	my( $self) = @_;
-	$self->{bot}->get("https://class.coursera.org/$self->{course}/auth/auth_redirector?type=login&subtype=normal&email=&visiting=index");
-	my $session=$self->{bot}->cookie_jar()-> {"COOKIES"}-> {"class.coursera.org"}-> {"/$self->{course}"}-> {"session"}->[1];
-	$self->{bot}->add_header("Cookie" => "csrf_token=$self->{key}");
-	$self->{bot}->add_header("session" => "$self->{session}");
-	my $response = $self->{bot}->post("https://class.coursera.org/$self->{course}/lecture/index");
-	$self->{response}=$response;
-	return $self->{bot}->links();
+    my( $self) = @_;
+    $self->{bot}->get("https://class.coursera.org/$self->{course}/auth/auth_redirector?type=login&subtype=normal&email=&visiting=index");
+    my $session=$self->{bot}->cookie_jar()-> {"COOKIES"}-> {"class.coursera.org"}-> {"/$self->{course}"}-> {"session"}->[1];
+    $self->{bot}->add_header("Cookie" => "csrf_token=$self->{key}");
+    $self->{bot}->add_header("session" => "$self->{session}");
+    my $response = $self->{bot}->post("https://class.coursera.org/$self->{course}/lecture/index");
+    $self->{response}=$response;
+    return $self->{bot}->links();
 }
 
 =head2 download
 
+Download lectures.
+
 =cut
 
 sub download {
-	my( $self) = @_;
-	my $count = scalar(keys $self->get_links());
+    my( $self) = @_;
+    my $count = scalar(keys $self->get_links());
 	my @extentions=("mp4","txt","pdf","pptx","srt");
 	foreach my $items ($self->get_links()) {
 		foreach my $ext (@extentions) {
-		if ( $items->[0] =~ /$ext/i) {
-			my $st=$items->[1];
-			if ($st =~ /for\s+/i) {
+			if ( $items->[0] =~ /$ext/i) {
+				my $st=$items->[1];
+				if ($st =~ /for\s+/i) {
 				my $st2=$';
 				$st2 =~ s/^ //;
 				$st2 =~s/\W+/_/g;
@@ -156,6 +166,8 @@ sub download {
 }
 
 =head2 get_all
+
+Main, which marks the entry point of the program.
 
 =cut
 
@@ -188,6 +200,10 @@ automatically be notified of progress on your bug as I make changes.
 You can find documentation for this module with the perldoc command.
 
     perldoc WWW::Coursera
+    
+    or
+   
+		https://github.com/ovntatar/WWW-Coursera/issues
 
 
 You can also look for information at:
