@@ -1,6 +1,7 @@
 WWW-Coursera
 
-	WWW::Coursera - Downloading material (video, text, pdf ...) from Coursera.org online classes.
+	WWW::Coursera - Downloading material (video, text, pdf ...) 
+	from Coursera.org online classes.
 
 	Project HOME:
 
@@ -17,8 +18,8 @@ To install this module, run the following commands:
 
 SYNOPSIS
 
-It scrapes the course index page to get lecture names, and then downloads the related
-materials.
+It scrapes the course index page to get lecture names, 
+and then downloads the related materials.
 
 snippet.
 
@@ -43,16 +44,16 @@ perldoc command.
 You can also look for information at:
 
   RT, CPAN's request tracker (report bugs here)
-		http://rt.cpan.org/NoAuth/Bugs.html?Dist=WWW-Coursera
+	http://rt.cpan.org/NoAuth/Bugs.html?Dist=WWW-Coursera
 
   AnnoCPAN, Annotated CPAN documentation
-		http://annocpan.org/dist/WWW-Coursera
+	http://annocpan.org/dist/WWW-Coursera
 
   PAN Ratings
-     http://cpanratings.perl.org/d/WWW-Coursera
+	http://cpanratings.perl.org/d/WWW-Coursera
 
   Search CPAN
-     http://search.cpan.org/dist/WWW-Coursera/
+	http://search.cpan.org/dist/WWW-Coursera/
 
 
 LICENSE AND COPYRIGHT
