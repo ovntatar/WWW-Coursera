@@ -28,7 +28,7 @@ our $VERSION = '0.01';
 It scrapes the course index page to get lecture names, and then downloads the related
 materials.
 
-Perhaps a little code snippet.
+Code snippet.
 
  use WWW::Coursera;
  my $initial = WWW::Coursera->new( username => 'xxxxx', password => 'xxxx', course => 'xxxx');
