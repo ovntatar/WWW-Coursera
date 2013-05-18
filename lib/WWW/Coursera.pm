@@ -50,7 +50,7 @@ sub new {
     bless $self, $class;
 
     for my $required (qw{ username password course  }) {
-			croak "Required parameter '$required' missing in constructor" unless exists $params{$required};  
+	croak "Required parameter '$required' missing in constructor" unless exists $params{$required};  
     }    
     return $self;
 }
@@ -64,11 +64,11 @@ Set download folder by set $inizial->set_localdir("OS_FOLDER");
 sub set_localdir {
     my( $self, $set_localdir) = @_;
     if (-d "$set_localdir") {
-			$self->{set_localdir}=$set_localdir;
-			return $self->{set_localdir};
-		} else {
-			croak "Directory $set_localdir does'n exist";
-		}
+		$self->{set_localdir}=$set_localdir;
+		return $self->{set_localdir};
+	} else {
+		croak "Directory $set_localdir does'n exist";
+	}
 }
 
 
@@ -219,8 +219,8 @@ Ovidiu Nita Tatar, C<< <ovn.tatar at gmail.com> >>
 =head1 BUGS
 
 Please report any bugs or feature requests to C<bug-www-coursera at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=WWW-Coursera>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
+the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=WWW-Coursera>. 
+I will be notified, and then you'll automatically be notified of progress on your bug as I make changes.
 
 
 
