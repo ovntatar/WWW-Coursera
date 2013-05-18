@@ -15,11 +15,11 @@ WWW::Coursera - Downloading material (video, text, pdf ...) from Coursera.org on
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 =head1 SYNOPSIS
