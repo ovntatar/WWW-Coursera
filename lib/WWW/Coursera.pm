@@ -62,7 +62,9 @@ Set download folder by set $inizial->set_localdir("OS_FOLDER");
 =cut
 
 sub set_localdir {
+    
     my( $self, $set_localdir) = @_;
+    
     if (-d "$set_localdir") {
 		$self->{set_localdir}=$set_localdir;
 		return $self->{set_localdir};
