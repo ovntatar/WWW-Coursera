@@ -66,11 +66,11 @@ sub set_localdir {
     my( $self, $set_localdir) = @_;
     
     if (-d "$set_localdir") {
-		$self->{set_localdir}=$set_localdir;
-		return $self->{set_localdir};
-	} else {
-		croak "Directory $set_localdir does'n exist";
-	}
+	$self->{set_localdir}=$set_localdir;
+	return $self->{set_localdir};
+    } else {
+	croak "Directory $set_localdir does'n exist";
+    }
 }
 
 
