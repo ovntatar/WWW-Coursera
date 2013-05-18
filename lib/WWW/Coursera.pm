@@ -161,7 +161,6 @@ sub download {
 	
   my( $self) = @_;
   
-  my $count = scalar(keys $self->get_links());
 	my @extentions=("mp4","txt","pdf","pptx","srt");
 	foreach my $items ($self->get_links()) {
 		
