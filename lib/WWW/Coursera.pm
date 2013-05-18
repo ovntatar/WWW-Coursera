@@ -163,36 +163,31 @@ sub download {
 	
   my( $self) = @_;
   
-	my @extentions=("mp4","txt","pdf","pptx","srt");
-	foreach my $items ($self->get_links()) {
+    my @extentions=("mp4","txt","pdf","pptx","srt");
+    foreach my $items ($self->get_links()) {
 		
-		foreach my $ext (@extentions) {
-			
-			if ( $items->[0] =~ /$ext/i) {
-				
-				my $st=$items->[1];
-				
-				if ($st =~ /for\s+/i) {
-				my $st2=$';
-				$st2 =~ s/^ //;
-				$st2 =~s/\W+/_/g;
-				
-					if ( $self->{set_localdir} ) {
-						print "Downloading class: " . $items->[1] . "\n" ;
-						$self->{bot}->get( "$items->[0]", ":content_file" => "$self->{set_localdir}/$st2.$ext" );
-					} else {
-						print "Downloading class: " . $items->[1] . "\n"  ;
-						$self->{bot}->get( "$items->[0]", ":content_file" => "$st2.$ext" );
-					}
-					
-				}	
-				
-			}
-			
-		}	
+	foreach my $ext (@extentions) {
 		
-		
-	}			
+		if ( $items->[0] =~ /$ext/i) {
+				
+		my $st=$items->[1];
+				
+			if ($st =~ /for\s+/i) {
+			my $st2=$';
+			$st2 =~ s/^ //;
+			$st2 =~s/\W+/_/g;
+				
+			if ( $self->{set_localdir} ) {
+			    print "Downloading class: " . $items->[1] . "\n" ;
+			    $self->{bot}->get( "$items->[0]", ":content_file" => "$self->{set_localdir}/$st2.$ext" );
+			} else {
+			    print "Downloading class: " . $items->[1] . "\n"  ;
+			    $self->{bot}->get( "$items->[0]", ":content_file" => "$st2.$ext" );
+		    }
+		}			
+            }	
+        }					
+    }			
 }
 
 =head2 get_all
