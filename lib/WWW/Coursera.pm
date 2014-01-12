@@ -100,7 +100,7 @@ Filter csrf_token key from the cookie.txt file.
 sub set_csrftoken {
     my( $self) = @_;
     
-    my $response = $self->{bot}->post("https://class.coursera.org/$self->{course}/lecture/index");
+    my $response = $self->{bot}->post("https://class.coursera.org/$self->{course}/lecture");
     my $key=$self->{bot}->cookie_jar()-> {"COOKIES"}-> {"class.coursera.org"}-> {"/$self->{course}"}-> {"csrf_token"}->[1];
     $self->{key}=$key;
     
@@ -145,7 +145,7 @@ sub get_links {
     my $session=$self->{bot}->cookie_jar()-> {"COOKIES"}-> {"class.coursera.org"}-> {"/$self->{course}"}-> {"session"}->[1];
     $self->{bot}->add_header("Cookie" => "csrf_token=$self->{key}");
     #$self->{bot}->add_header("session" => "$self->{session}");
-    my $response = $self->{bot}->post("https://class.coursera.org/$self->{course}/lecture/index");
+    my $response = $self->{bot}->post("https://class.coursera.org/$self->{course}/lecture");
     $self->{response}=$response;
     return $self->{bot}->links();
 }
