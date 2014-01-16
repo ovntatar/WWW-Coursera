@@ -16,7 +16,7 @@ use Carp qw(croak) ;
 
 =head1 NAME
 
-WWW::Coursera - Downloading paralell material (video, text, pdf ...) from Coursera.org online classes.
+WWW::Coursera - Downloading parallel material (video, text, pdf ...) from Coursera.org online classes.
 
 =head1 VERSION
 
