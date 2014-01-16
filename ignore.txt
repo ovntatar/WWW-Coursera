@@ -1,6 +1,7 @@
 blib*
 Makefile
 Makefile.old
+.git
 Build
 Build.bat
 _build*
