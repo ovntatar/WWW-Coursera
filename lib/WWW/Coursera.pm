@@ -34,6 +34,7 @@ our $VERSION = '0.04';
     
     The only one requirement is to enroll the course online.
 
+
     use WWW::Coursera;
     my $init = WWW::Coursera->new(
         username              	=> 'xxxx',	#is required
@@ -44,7 +45,6 @@ our $VERSION = '0.04';
         override_existing_files	=> 1,		#default false
       );
       $init->run;
-
 
 =head1 SUBROUTINES/METHODS
 
