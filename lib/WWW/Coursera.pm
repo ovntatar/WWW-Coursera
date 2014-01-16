@@ -27,6 +27,39 @@ version 0.04
 our $VERSION = '0.04';
 
 
+has username => (
+    is       => 'ro',
+    required => 1,
+);
+
+has password => (
+    is       => 'ro',
+    required => 1,
+);
+
+has course_id => (
+    is       => 'ro',
+    required => 1,
+);
+
+has debug => (
+    is      => 'rw',
+    default => 0,
+);
+
+has max_parallel_download => (
+    is      => 'rw',
+    default => 10,
+);
+
+has override_existing_files => (
+    is      => 'rw',
+    default => 0,
+);
+
+
+
+
 =head1 SYNOPSIS
 
     Scrape video materials from lectures area and download paralell related files.
