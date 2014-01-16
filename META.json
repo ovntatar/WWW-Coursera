@@ -1,0 +1,50 @@
+{
+   "abstract" : "Downloading paralell material (video, text, pdf ...) from Coursera.org online classes.",
+   "author" : [
+      "Ovidiu Nita Tatar <ovn.tatar@gmail.com>"
+   ],
+   "dynamic_config" : 1,
+   "generated_by" : "Module::Build version 0.4203",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "WWW-Coursera",
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "Test::More" : "0"
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "Module::Build" : "0.42"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "AnyEvent" : "7.07",
+            "Carp" : "1.32",
+            "File::Path" : "2.08_01",
+            "Mojolicious" : "4.67",
+            "perl" : "5.01"
+         }
+      }
+   },
+   "provides" : {
+      "WWW::Coursera" : {
+         "file" : "lib/WWW/Coursera.pm",
+         "version" : "0.04"
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "license" : [
+         "http://dev.perl.org/licenses/"
+      ]
+   },
+   "version" : "0.04"
+}
