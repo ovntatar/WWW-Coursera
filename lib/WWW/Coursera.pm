@@ -254,11 +254,11 @@ the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=WWW-Course
 automatically be notified of progress on your bug as I make changes.
 
 
-=head1 REQUIREMNET
+=head1 REQUIREMENT
 
         perl 5.010 or higher
         Enrol course before start downloding
-        For more infor regarding requires modules (see Build.PL)
+        For more info regarding requires modules (see Build.PL)
 
 =head1 INSTALLATION
 
