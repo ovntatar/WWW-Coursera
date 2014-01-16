@@ -305,7 +305,7 @@ To install this module, run the following commands:
 
         OR (if you don't have write permissions to create man3) use cpanminus: 
 
-        cpanm WWW-Coursera-0.04.tar.gz
+        cpanm WWW-Coursera
 
 
 =head1 SUPPORT
