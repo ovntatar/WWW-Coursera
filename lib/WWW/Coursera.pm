@@ -39,9 +39,9 @@ our $VERSION = '0.04';
         username              	=> 'xxxx',	#is required
         password              	=> 'xxxx',	#is required
         course_id             	=> "xxxx",	#is required
-        debug                 	=> 1,	#default disabled
-        max_parallel_download 	=> 10,	#default 10
-        override_existing_files	=> 1,	#default false
+        debug                 	=> 1,		#default disabled
+        max_parallel_download 	=> 10,		#default 10
+        override_existing_files	=> 1,		#default false
       );
       $init->run;
 
