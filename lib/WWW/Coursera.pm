@@ -58,8 +58,6 @@ has override_existing_files => (
 );
 
 
-
-
 =head1 SYNOPSIS
 
     Scrape video materials from lectures area and download paralell related files.
