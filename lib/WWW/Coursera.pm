@@ -20,7 +20,7 @@ WWW::Coursera - Downloading parallel material (video, text, pdf ...) from Course
 
 =head1 VERSION
 
-version 0.04
+version 0.06
 
 =cut
 
