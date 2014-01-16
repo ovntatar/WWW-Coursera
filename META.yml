@@ -1,7 +1,7 @@
 ---
 abstract: 'Downloading paralell material (video, text, pdf ...) from Coursera.org online classes.'
 author:
-  - 'Ovidiu Nita Tatar <ovn.tatar@gmail.com>'
+  - 'Ovidiu N. Tatar <ovn.tatar@gmail.com>'
 build_requires:
   Test::More: 0
 configure_requires:

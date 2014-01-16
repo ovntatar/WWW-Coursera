@@ -6,7 +6,7 @@ use Module::Build;
 my $builder = Module::Build->new(
     module_name         => 'WWW::Coursera',
     license             => 'perl',
-    dist_author         => q{Ovidiu Nita Tatar <ovn.tatar@gmail.com>},
+    dist_author         => q{Ovidiu N. Tatar <ovn.tatar@gmail.com>},
     dist_version_from   => 'lib/WWW/Coursera.pm',
     build_requires => {
         'Test::More' => 0,

@@ -24,7 +24,7 @@ version 0.04
 
 =cut
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 
 has username => (
@@ -276,7 +276,7 @@ sub run {
 
 =head1 AUTHOR
 
-Ovidiu Nita Tatar, C<< <ovn.tatar at gmail.com> >>
+Ovidiu N. Tatar, C<< <ovn.tatar at gmail.com> >>
 
 =head1 BUGS
 
@@ -347,7 +347,7 @@ L<http://search.cpan.org/dist/WWW-Coursera/>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2013 Ovidiu Nita Tatar.
+Copyright 2013 Ovidiu N. Tatar.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
