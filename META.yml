@@ -23,6 +23,7 @@ requires:
   File::Path: 2.08_01
   Mojolicious: 4.67
   perl: 5.01
+  Moo: 1.004002
 resources:
   license: http://dev.perl.org/licenses/
 version: 0.07
