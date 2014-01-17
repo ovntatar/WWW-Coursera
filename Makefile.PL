@@ -11,6 +11,7 @@ WriteMakefile
                    'File::Path' => '2.08_01',
                    'Mojolicious' => '4.67',
                    'Test::More' => 0
+		   'Moo'	=> '1.004002', 
                  },
   'INSTALLDIRS' => 'site',
   'EXE_FILES' => [],
