@@ -20,11 +20,11 @@ WWW::Coursera - Downloading parallel material (video, text, pdf ...) from Course
 
 =head1 VERSION
 
-version 0.06
+version 0.07
 
 =cut
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 
 has username => (
