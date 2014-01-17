@@ -17,6 +17,7 @@ my $builder = Module::Build->new(
     	'Carp' => '1.32',
     	'File::Path' => '2.08_01',
     	'Mojolicious' => '4.67',
+	'Moo'		=> '1.004002',
 	},
     add_to_cleanup      => [ 'WWW-Coursera-*' ],
     create_makefile_pl => 'traditional',
