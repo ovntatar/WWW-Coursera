@@ -13,6 +13,7 @@ my $cv = AE::cv;
 use File::Path qw( make_path );
 use Carp qw(croak) ;
 
+$ENV{MOJO_MAX_MESSAGE_SIZE} = 1073741824;
 
 =head1 NAME
 
@@ -26,31 +27,66 @@ version 0.07
 
 our $VERSION = '0.07';
 
+=head2 username
+
+  set username
+
+=cut
 
 has username => (
     is       => 'ro',
     required => 1,
 );
 
+=head2 password
+
+  set password
+
+=cut
+
 has password => (
     is       => 'ro',
     required => 1,
 );
+
+=head2 course_id
+
+  set course id
+
+=cut
 
 has course_id => (
     is       => 'ro',
     required => 1,
 );
 
+=head2 debug
+
+  debug option
+
+=cut
+
 has debug => (
     is      => 'rw',
     default => 0,
 );
 
+=head2 max_parallel_download
+
+  set max parallel http requests
+
+=cut
+
 has max_parallel_download => (
     is      => 'rw',
-    default => 10,
+    default => 2,
 );
+
+=head2 override_existing_files
+
+  set option ro override existing files 
+
+=cut
 
 has override_existing_files => (
     is      => 'rw',
@@ -72,7 +108,7 @@ has override_existing_files => (
         password              	=> 'xxxx',	#is required
         course_id             	=> "xxxx",	#is required
         debug                 	=> 1,		#default disabled
-        max_parallel_download 	=> 10,		#default 10
+        max_parallel_download 	=> 2,		#default 10
         override_existing_files	=> 1,		#default false
       );
       $init->run;
