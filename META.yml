@@ -16,7 +16,7 @@ name: WWW-Coursera
 provides:
   WWW::Coursera:
     file: lib/WWW/Coursera.pm
-    version: 0.07
+    version: 0.08
 requires:
   AnyEvent: 7.07
   Carp: 1.32
@@ -26,4 +26,4 @@ requires:
   Moo: 1.004002
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.07
+version: 0.08
