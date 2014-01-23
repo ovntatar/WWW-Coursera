@@ -108,7 +108,7 @@ has override_existing_files => (
         password              	=> 'xxxx',	#is required
         course_id             	=> "xxxx",	#is required
         debug                 	=> 1,		#default disabled
-        max_parallel_download 	=> 2,		#default 10
+        max_parallel_download 	=> 2,		#default 2
         override_existing_files	=> 1,		#default false
       );
       $init->run;
