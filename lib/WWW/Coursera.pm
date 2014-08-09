@@ -188,7 +188,7 @@ sub login {
             'Cookie'      => "csrftoken=$self->{csrf}",
             'X-CSRFToken' => "$self->{csrf}"
           } => form =>
-          { email => "$self->{username}", password => "$self->{password}" }
+          { webrequest => "true", email => "$self->{username}", password => "$self->{password}" }
     );
     say "The http response code from login page is :" . $tx->res->code
       if $self->debug;
