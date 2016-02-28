@@ -21,11 +21,11 @@ WWW::Coursera - Downloading parallel material (video, text, pdf ...) from Course
 
 =head1 VERSION
 
-version 0.11
+version 0.12
 
 =cut
 
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 =head2 username
 
@@ -235,7 +235,6 @@ sub extract_urls {
                 my $title = $e->find('a[data-if-linkable=modal-lock]')->each(
                     sub {
                         my ( $b, $cnt ) = @_;
-                        use DDP;
 						my $file = $b->find('div.hidden')->[0]->text;
                         my $url  = $b->attr('href');
                         foreach my $ext ( $self->extentions ) {
