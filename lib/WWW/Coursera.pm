@@ -294,7 +294,7 @@ sub run {
     my $self = shift;
     $AnyEvent::Util::MAX_FORKS = $self->max_parallel_download;
     $self->extract_urls;
-    my @arr = keys $self->{urls};
+    my @arr = keys %{$self->{urls}};
     foreach my $file (@arr) {
         $cv->begin;
         fork_call {
