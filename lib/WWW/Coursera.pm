@@ -25,7 +25,7 @@ version 0.08
 
 =cut
 
-our $VERSION = '0.08';
+our $VERSION = '0.10';
 
 =head2 username
 
@@ -152,6 +152,7 @@ sub UserAgent {
     my $ua   = Mojo::UserAgent->new;
     $ua = $ua->max_redirects(1);
     $self->{ua} = $ua;
+	$ua->transactor->name('Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0');
 }
 
 
@@ -170,7 +171,7 @@ sub csrf {
     my $csrf = $tx->res->cookies->[0]->{value};
     croak "Error: No CSRF key available my be the couse is not available"
       unless $csrf;
-    $self->{csrf} = $csrf;
+    $self->{csrf} = $tx->req->cookies->[0]->{value};
     say "The CSRF key is : $csrf" if $self->debug;
 }
 
@@ -184,11 +185,11 @@ sub login {
     my $self = shift;
     $self->csrf;
     my $tx = $self->{ua}->post(
-        'https://accounts.coursera.org/api/v1/login' => {
-            'Cookie'      => "csrftoken=$self->{csrf}",
-            'X-CSRFToken' => "$self->{csrf}"
+        "https://www.coursera.org/api/login/v3Ssr?csrf3-token=$self->{csrf}" => {
+            #'Cookie'      => "CSRF3-Token=$self->{csrf}",
+            'csrf3-token' => $self->{csrf},
           } => form =>
-          { webrequest => "true", email => "$self->{username}", password => "$self->{password}" }
+          { email => "$self->{username}", password => "$self->{password}" }
     );
     say "The http response code from login page is :" . $tx->res->code
       if $self->debug;
@@ -227,14 +228,15 @@ sub extract_urls {
     my $r =
       $self->{ua}->get("https://class.coursera.org/$self->{course_id}/lecture");
     if ( my $res = $r->success ) {
-        my $dom = $r->res->dom->html->body;
+        my $dom = $r->res->dom;
         $dom->find('div.course-lecture-item-resource')->each(
             sub {
                 my ( $e, $count ) = @_;
                 my $title = $e->find('a[data-if-linkable=modal-lock]')->each(
                     sub {
                         my ( $b, $cnt ) = @_;
-                        my $file = $b->find('div.hidden')->text;
+                        use DDP;
+						my $file = $b->find('div.hidden')->[0]->text;
                         my $url  = $b->attr('href');
                         foreach my $ext ( $self->extentions ) {
                             if ( "$url" =~ m/$ext/ ) {
